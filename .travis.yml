@@ -1,13 +1,19 @@
 language: node_js
-
 node_js:
-  - "5"
-  - "4.1"
-  - "4.0"
-  - '0.12'
-  - '0.11'
-
+- '5'
+- '4.1'
+- '4.0'
+- '0.12'
+- '0.11'
 services: mongodb
-
 before_script:
-  - npm install -g mocha
+- npm install -g mocha
+deploy:
+  provider: heroku
+  api_key:
+    secure: JWMWz77c6GCXpEsbID7WUrdkNfd8kXG1ksbaZE3Z+mEDLYHmx/CJhvZUOPGut0rmWjRMG73NA5ixUEV8P/w85W9c+Lp811DZV8p5vlwIM5bB5WPh9FpcyjbfY7mbS1yTq+WHdXZlWljU4cpGhgEWHJo0CKT+rBUy9U4epVLr6ZUF8/v3jIhlbjYnJZIkvnmp1vINJAWDFMr1b11W/GqMXl10YFuw7gzYt7lKBjpDQKUIJ25DOo4vON1sg26W1xMgwaUJgZPftwgRd6BMqaEbmAIFGp6VnTpAlIZiSy6Xks2dSlzG0Km4pY7ZrTTqnV9wYNCG95Z+kGAV/5sghFWoPrXaeGyHbVtf55S2oN7AXA3EncFU/DYw/Hu6VGFtjDIy29yP7EdTeb4gmT3zyI9V40DjpxUYC5gx6+SINSajm2PuNhMackEPnZDuZfL3i4soD9v7ME4r7OwdNp7NDmu7CjzjAj/SrWn0OnZMpphjHyiD/DCUMajiTix7/T+P3Iw+fIzki+wjxs5hcYlfKBeUZst6wBw56B1InSX1DIKdcvZ71BfTBoOePrm12SYTcKuM+j36hszYaTg0I7KbGmP+zSIoEOOyE+cLePMTSJlsT3makijnlgrNe7CwS4IbKdKSAtLyse1nWe0bcsBsYiCfLEzI4qsPmxwDU1f/Yav5Scc=
+  app: gentle-waters-28137
+  on:
+    branch: master
+    node: '5'
+    repo: khsagehorn/angular-mean-crud-app
