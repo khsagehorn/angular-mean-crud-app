@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='myApp'>
+  <head>
+    <meta charset="utf-8">
+    <title>Untitled</title>
+    
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <!-- sample angular code -->
+    <div class="container" ng-cloak ng-controller="addStudentController">
+      <form class="form" ng-submit="addStudent()">
+        <input ng-model="student.firstName" type="text"placeholder="first name..." required></input>
+        <input ng-model="student.lastName" type="text"placeholder="last name..." required></input>
+        <input ng-model="student.year" type="number"placeholder="year..." required></input>
+        <button type="submit">Add Student</button> 
+      </form>
+      <div ng-repeat="student in allStudents">
+        <p>{{student.firstName}} {{student.lastName}}</p>
+      </div>
+    </div>
+
+
+    
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+
+  </body>
+</html>
