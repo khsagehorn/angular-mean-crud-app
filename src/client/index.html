@@ -10,7 +10,7 @@
   </head>
   <body>
     <!-- sample angular code -->
-    <div class="container" ng-cloak ng-controller="addStudentController">
+    <div class="container" ng-cloak >
       <form class="form" ng-submit="addStudent()">
         <input ng-model="student.firstName" type="text"placeholder="first name..." required></input>
         <input ng-model="student.lastName" type="text"placeholder="last name..." required></input>
@@ -28,7 +28,9 @@
 
     
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular-route.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/routes.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/services.js"></script>
 

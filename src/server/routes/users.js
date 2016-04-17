@@ -30,6 +30,9 @@ router.post('/register', function(req, res, next){
         }
       });
     });
+  })
+  .catch(function (err){
+    return next(err);
   });
 });
 
@@ -67,7 +70,10 @@ router.post('/login', function(req, res, next){
         }
       });
     });
-  });
+  })
+  .catch(function(err){
+    return next(err);
+  })
 });
 
 router.get('/logout', function(req, res, next){
@@ -76,46 +82,45 @@ router.get('/logout', function(req, res, next){
 //**** helper functions ****
 
 // generate a token
-function generateToken(user){
+function generateToken(user) {
   var payload = {
     exp: moment().add(14, 'days').unix(),
     iat: moment().unix(),
     sub: user._id
   };
-  jwt.encode(payload, config.TOKEN_SECRET);
+  return jwt.encode(payload, config.TOKEN_SECRET);
 }
 
 // ensure authenticated
-function ensureAuthenicated(req, res, next){
-  // check headers for auth token
-  if (!(req.headers && req.headers.authorization)){
+function ensureAuthenticated(req, res, next) {
+  // check headers for the presence of an auth object
+  if(!(req.headers && req.headers.authorization)) {
     return res.status(400).json({
       status: 'fail',
       message: 'No header present or no authorization header.'
-    }); 
+    });
   }
-  // decode token
+  // decode the token
   var header = req.headers.authorization.split(' ');
   var token = header[1];
   var payload = jwt.decode(token, config.TOKEN_SECRET);
   var now = moment().unix();
-
-  // ensure token is valid
-  if (now > payload.exp){
+  // ensure that it is valid
+  if(now > payload.exp || payload.iat > now) {
     return res.status(401).json({
       status: 'fail',
       message: 'Token is invalid'
     });
   }
-  // ensure user is still in database
+  // ensure user is still in the database
   User.findById(payload.sub, function(err, user){
-    if(err){
+    if(err) {
       return next(err);
     }
-    if (!user){
+    if(!user) {
       return res.status(400).json({
         status: 'fail',
-        message: 'User does not exist.'
+        message: 'User does not exist'
       });
     }
     // attach user to request object
@@ -123,23 +128,20 @@ function ensureAuthenicated(req, res, next){
     // call next middleware function
     next();
   });
-
 }
 
-
-//ensure admin
-function ensureAdmin(req, res, next){
-  // check for user object
+// ensure admin
+function ensureAdmin(req, res, next) {
+  // check for the user object
   // check for admin === true on user object
-  if (!(req.user && req.user.admin)){
+  if(!(req.user && req.user.admin)) {
     return res.status(401).json({
       status: 'fail',
-      message: 'Token is invalid'
+      message: 'User is not authorized'
     });
   }
   next();
 }
-
 
 
 module.exports = router;
